@@ -1,4 +1,4 @@
 #!/bin/bash
-./update.sh
+./update.sh $@
 echo "=> Push"
 time git push

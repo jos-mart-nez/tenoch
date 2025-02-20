@@ -3,6 +3,6 @@
 function commit {
   echo "=> Commit.sh"
   git add .
-  git commit -m "update"
+  git commit -m "$@"
 }
-time commit
+time commit $@
