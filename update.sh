@@ -5,4 +5,4 @@ function commit {
   git add .
   git commit -m "$@"
 }
-time commit $@
+time commit "$@"
