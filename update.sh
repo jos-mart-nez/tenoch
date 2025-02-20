@@ -1,4 +1,6 @@
 #!/bin/bash
 ./format.sh
-git add .
-git commit -m "update"
+echo "=> Add"
+time git add .
+echo "=> Commit"
+time git commit -m "update"
