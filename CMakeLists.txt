@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.5)
+project(tenoch C)
+set(CMAKE_C_STANDARD 23)
+set(CMAKE_C_STANDARD_REQUIRED ON)
+add_compile_options(-Werror -Wfatal-errors -Wpedantic -Wall -Wextra)
+add_subdirectory(gtg)
