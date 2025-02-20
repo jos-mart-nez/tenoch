@@ -1,11 +1,10 @@
 #/bin/bash
-if ! ./configure.sh $1
-then
-	exit 1
-fi
+./format.sh gtg
 if ! ./build.sh $1
 then
 	exit 1
 fi
-./run.sh $1 $2
-
+if [ -n "$2" ]
+then
+  ./run.sh $1 $2
+fi
