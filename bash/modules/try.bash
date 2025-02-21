@@ -1,6 +1,6 @@
 #!/bin/bash
 function try {
-  if ! "$@"
+  if ! $@
   then
     exit
   fi
