@@ -2,6 +2,6 @@
 function try {
   if ! $@
   then
-    exit
+    exit 1
   fi
 }
