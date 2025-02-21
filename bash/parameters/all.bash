@@ -1,0 +1,4 @@
+#!/bin/bash
+PLATFORM=$1
+BUILD_TYPE=$2
+RUN_TARGET=$3

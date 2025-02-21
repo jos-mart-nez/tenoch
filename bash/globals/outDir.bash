@@ -1,2 +1,2 @@
 #!/bin/bash
-tree -I out
+OUT_DIR=out
