@@ -6,7 +6,6 @@ function commit {
   source bash/modules/error.bash
   try git add .
   message=$@
-  echo $message
   if ! git commit -m "$message"
   then
     error "commit failed"
