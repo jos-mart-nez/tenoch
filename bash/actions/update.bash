@@ -5,7 +5,7 @@ function commit {
   echo "=> Commit.sh"
   source bash/modules/error.bash
   try git add .
-  if ! git commit -m "update"
+  if ! git commit -m "$@"
   then
     error "commit failed"
   fi
