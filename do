@@ -22,7 +22,6 @@ function do_action {
   try "clean" $@
   try "format" $@
   try "update" $@
-  try "push" $@
   try "tree" $@
   try "style" $@
   source bash/modules/error.bash
