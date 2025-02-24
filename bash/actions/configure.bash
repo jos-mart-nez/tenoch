@@ -19,7 +19,7 @@ function configure {
   else
     error "invalid build type name ($BUILD_TYPE)"
   fi
-  common="cmake -S . -B $OUT_DIR/$PLATFORM/$BUILD_TYPE -DCMAKE_BUILD_TYPE=$cmake_bt -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -G Ninja"
+  common="cmake -S . -B $OUT_DIR/$PLATFORM/$BUILD_TYPE -DCMAKE_BUILD_TYPE=$cmake_bt -DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
   if [ "$PLATFORM" == "linux" ]
   then
     $common
