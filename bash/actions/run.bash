@@ -4,8 +4,7 @@ function run {
   source bash/globals/outDir.bash
   source bash/globals/binDir.bash
   source bash/parameters/all.bash
-  cd $OUT_DIR/$PLATFORM/$BUILD_TYPE/$BIN_DIR/$RUN_TARGET
-  shift
+  cd $OUT_DIR/$BUILD_TYPE/$BIN_DIR/$RUN_TARGET
   shift
   shift
   ./$RUN_TARGET $@

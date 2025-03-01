@@ -19,15 +19,7 @@ function configure {
   else
     error "invalid build type name ($BUILD_TYPE)"
   fi
-  common="cmake -S . -B $OUT_DIR/$PLATFORM/$BUILD_TYPE -DCMAKE_BUILD_TYPE=$cmake_bt -DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
-  if [ "$PLATFORM" == "linux" ]
-  then
-    $common
-  elif [ "$PLATFORM" == "windows" ]
-  then
-    $common 
-  else
-    error "invalid platform name ($PLATFORM)"
-  fi
+  cmake -S . -B $OUT_DIR/$BUILD_TYPE -DCMAKE_BUILD_TYPE=$cmake_bt -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+  cp $OUT_DIR/$BUILD_TYPE/compile_commands.json $OUT_DIR/compile_commands.json
 }
 time configure $@

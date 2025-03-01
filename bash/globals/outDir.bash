@@ -1,2 +1,2 @@
 #!/bin/bash
-OUT_DIR=out
+OUT_DIR=build
