@@ -13,7 +13,7 @@ function format {
     find $1 -type f -exec bash -c 'fmt_file "$0"' {} \;
   }
   function fmt_proj {
-    fmt_dir $1/gls
+    fmt_dir $1/glsl
     fmt_dir $1/inc
     fmt_dir $1/src
   }
