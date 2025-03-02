@@ -1,6 +1,6 @@
 set(BINARY_DIR ${CMAKE_BINARY_DIR}/bin/gtg)
-file(GLOB_RECURSE HEADERS src/*.h)
-file(GLOB_RECURSE SOURCES src/*.c)
+file(GLOB_RECURSE HEADERS inc/*.h)
+file(GLOB_RECURSE SOURCES src/*.cc)
 add_executable(gtg ${HEADERS} ${SOURCES})
 set_target_properties(gtg PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${BINARY_DIR})
 file(COPY res DESTINATION ${BINARY_DIR})

@@ -19,7 +19,10 @@ function configure {
   else
     error "invalid build type name ($BUILD_TYPE)"
   fi
-  cmake -S . -B $OUT_DIR/$BUILD_TYPE -DCMAKE_BUILD_TYPE=$cmake_bt -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+  if ! cmake -S . -B $OUT_DIR/$BUILD_TYPE -DCMAKE_BUILD_TYPE=$cmake_bt -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_CXX_COMPILER=clang++ -G Ninja
+  then
+    exit 1
+  fi
   cp $OUT_DIR/$BUILD_TYPE/compile_commands.json $OUT_DIR/compile_commands.json
 }
 time configure $@

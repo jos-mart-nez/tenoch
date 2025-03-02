@@ -1,0 +1,39 @@
+Index:
+  Background: Build
+  StandardLibrary: Yes
+Diagnostics:
+  MissingIncludes: Strict
+  UnusedIncludes: Strict
+  ClangTidy:
+    FastCheckFilter: Strict
+    Add:
+      - boost-*
+      - bugprone-*
+      - cert-*
+      - clang-analyzer-*
+      - concurrency-*
+      - cppcoreguidelines-*
+      - google-*
+      - hicpp-*
+      - llvm-*
+      - misc-*
+      - modernize-*
+      - performance-*
+      - portability-*
+      - readability-*
+Completion:
+  AllScopes: Yes
+  # ArgumentLists: FullPlaceholders
+InlayHints:
+  BlockEnd: Yes
+  Designators: Yes
+  Enabled: Yes
+  ParameterNames: Yes
+  DeducedTypes: Yes
+  # DefaultArguments: Yes
+  TypeNameLimit: 0
+Hover:
+  ShowAKA: Yes
+SemanticTokens:
+  DisabledKinds: []
+  DisabledModifiers: []
