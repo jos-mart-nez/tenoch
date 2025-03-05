@@ -1,4 +1,4 @@
-#!./venv/bin/python
+#!venv/bin/python
 
 
 import os
@@ -17,17 +17,17 @@ def warning(msg: str) -> None:
 
 def clean(_: Namespace) -> bool:
     print("Cleaning...")
-    if GLOBALS["build_base"].exists():
-        try:
-            shutil.rmtree(GLOBALS["build_base"])
-            print(
-                f"Directory '{GLOBALS["build_base"]}' and its contents have been removed successfully."
-            )
-        except Exception as exception:
-            return panic(
-                f"Could not remove directory '{GLOBALS["build_base"]}'. Reason: {exception}"
-            )
-    warning(f"Directory '{GLOBALS["build_base"]}' not found.")
+    try:
+        shutil.rmtree(GLOBALS["build_base"])
+        print(
+            f"Directory '{GLOBALS["build_base"]}' and its contents have been removed successfully."
+        )
+    except FileNotFoundError:
+        warning(f"Directory '{GLOBALS["build_base"]}' not found.")
+    except Exception as exception:
+        return panic(
+            f"Could not remove directory '{GLOBALS["build_base"]}'. Reason: {exception}"
+        )
     return True
 
 
@@ -58,11 +58,9 @@ def configure(args: Namespace) -> bool:
             "-G",
             "Ninja",
         ],
-        capture_output=False,
-        text=True,
     )
     if result.returncode != 0:
-        return panic(f"Failed to configure: {result.stderr}")
+        return panic(f"Failed to configure")
     try:
         src = GLOBALS["build_dir"].joinpath("compile_commands.json")
         dst = GLOBALS["build_base"].joinpath("compile_commands.json")
@@ -72,15 +70,13 @@ def configure(args: Namespace) -> bool:
     return True
 
 
-def build_only(args: Namespace) -> bool:
+def build_only(_: Namespace) -> bool:
     print("Building...")
     result = subprocess.run(
-        ["cmake", "--build", GLOBALS["build_dir"], "--parallel", f"{os.cpu_count()}"],
-        capture_output=False,
-        text=True,
+        ["cmake", "--build", GLOBALS["build_dir"], "--parallel", f"{os.cpu_count()}"]
     )
     if result.returncode != 0:
-        return panic(f"Failed to build: {result.stderr}")
+        return panic(f"Failed to build")
     return True
 
 
@@ -98,11 +94,7 @@ def run_only(args: Namespace) -> bool:
     GLOBALS["run_dir"] = GLOBALS["bin_dir"].joinpath(args.run_target)
     GLOBALS["run_target"] = GLOBALS["run_dir"].joinpath(args.run_target)
     os.chdir(GLOBALS["run_dir"])
-    result = subprocess.run(
-        [GLOBALS["run_target"]],
-        capture_output=False,
-        text=True,
-    )
+    result = subprocess.run([GLOBALS["run_target"]])
     if result.returncode != 0:
         warning(f"Run returned: {result.returncode}")
         return False
@@ -110,7 +102,6 @@ def run_only(args: Namespace) -> bool:
 
 
 def run(args: Namespace) -> bool:
-    out = {}
     if not measure(build, "Build", args):
         return False
     return measure(run_only, "Run only", args)
@@ -118,9 +109,9 @@ def run(args: Namespace) -> bool:
 
 def freeze(args: Namespace) -> bool:
     print("Freezing...")
-    result = subprocess.run(["pip", "freeze"], capture_output=True, text=True)
+    result = subprocess.run(["pip", "freeze"])
     if result.returncode != 0:
-        return panic(f"Failed to freeze: {result.stderr}")
+        return panic(f"Failed to freeze")
     print(result.stdout)
     return True
 
@@ -134,7 +125,9 @@ def main() -> None:
     print("Tenoch management script")
     parser = ArgumentParser(description="tenoch management script")
     parser.add_argument(
-        "--action", type=str, help="action to perform: build, configure or freeze"
+        "--action",
+        type=str,
+        help="action to perform: build, run, configure, clean, freeze",
     )
     parser.add_argument("--build-type", type=str, help="debug or release")
     parser.add_argument("--run-target", type=str, help="target to run")
